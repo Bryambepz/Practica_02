@@ -59,7 +59,7 @@
         <Menu class="javax.swing.JMenu" name="menuGestionar">
           <Properties>
             <Property name="mnemonic" type="int" value="101"/>
-            <Property name="text" type="java.lang.String" value="Gestionar Agenda"/>
+            <Property name="text" type="java.lang.String" value="Gestionar"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemtTelefono">

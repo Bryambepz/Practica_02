@@ -33,5 +33,4 @@ public class ControladorUsuario extends ControladorAbstract<Usuario> {
     public Usuario buscarTelefono(Telefono telefono) {
         return getListaObjetos().stream().filter(bn -> bn.buscarTelefono(telefono).equals(telefono.getNumero())).findFirst().get();
     }
-
 }

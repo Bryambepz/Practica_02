@@ -193,7 +193,6 @@ public class VentanaRegistrarUsuario extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Faltan campos por llenar");
             limpiar();
         }else{
-//            var usuario = new Usuario(cedula, nombre, apellido, correo, contraseña);
             System.out.println("Nuevo usuario = "+ new Usuario(cedula, nombre, apellido, correo, contraseña));
             ctrlUsuario.create(new Usuario(cedula, nombre, apellido, correo, contraseña));
 //            ctrlUsuario.create(new Usuario(cedula, nombre, apellido, correo, contraseña));

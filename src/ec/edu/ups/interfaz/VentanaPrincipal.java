@@ -21,7 +21,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private VentanaRegistrarUsuario ventanaRegistrar;
     private VentanaIniciarSesion ventanaIniciar;
     private EditarUsuario ventanaEditarUsuario;
-//    private EditarUsuario editarUsuario;
+    private AgregarTelefono1 ventantaAgregarTelf;
 //    private AgregarTelefono agregarTelefono;
 //    private TelefonosporUsuario telefonoPorUsuario;
     //mvc
@@ -37,11 +37,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         initComponents();
         menuItemCerrar.setVisible(false);
         menuGestionar.setVisible(false);
-        //instanciar vistas
+        //instanciar controladores
         ctrlUsuario = new ControladorUsuario();
+        ctrlTelefono = new ControladorTelefono();
+        //instanciar ventanas
         ventanaIniciar = new VentanaIniciarSesion(ctrlUsuario,this);
         ventanaRegistrar = new VentanaRegistrarUsuario(ctrlUsuario);
         ventanaEditarUsuario = new EditarUsuario(ctrlUsuario, ventanaIniciar);
+        ventantaAgregarTelf = new AgregarTelefono1(ctrlUsuario, ctrlTelefono);
 //        agregarTelefono = new AgregarTelefono(ctrlUsuario,this);
 //        editarUsuario = new EditarUsuario(ctrlUsuario, this);
         
@@ -146,7 +149,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         menuBar.add(menuMenu);
 
         menuGestionar.setMnemonic('e');
-        menuGestionar.setText("Gestionar Agenda");
+        menuGestionar.setText("Gestionar");
 
         menuItemtTelefono.setMnemonic('t');
         menuItemtTelefono.setText("Tefonos");
@@ -198,8 +201,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuItemRegistarActionPerformed
 
     private void menuItemtTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemtTelefonoActionPerformed
-//        desktopPane.add(agregarTelefono);
-//        agregarTelefono.setVisible(true);
+        desktopPane.add(ventantaAgregarTelf);
+        ventantaAgregarTelf.setVisible(true);
     }//GEN-LAST:event_menuItemtTelefonoActionPerformed
 
     private void menuItemCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCerrarActionPerformed

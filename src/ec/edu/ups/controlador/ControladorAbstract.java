@@ -7,7 +7,7 @@ package ec.edu.ups.controlador;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+//import java.util.Optional;
 //import lombok.Data;
 
 /**
@@ -22,7 +22,9 @@ public abstract class ControladorAbstract<T> {
     public ControladorAbstract() {
         listaObjetos = new ArrayList<>();
     }
-
+    
+//    public abstract int obtenerCodigo();
+    
     /**
      * Metodo Create para crear al objeto
      *

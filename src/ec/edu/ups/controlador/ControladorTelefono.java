@@ -6,13 +6,23 @@
 package ec.edu.ups.controlador;
 
 import ec.edu.ups.modelo.Telefono;
+import ec.edu.ups.modelo.Usuario;
 
 /**
  *
  * @author braya
  */
-public class ControladorTelefono extends ControladorAbstract<Telefono>{
+public class ControladorTelefono extends ControladorAbstract<Telefono> {
 
-    
-    
+    private Usuario usuario;
+
+    public ControladorTelefono() {
+        super();
+    }
+
+    public int obtenerCodigo() {
+//        return 123456789;
+        if (getListaObjetos().size() > 0)return getListaObjetos().size() + 1;return 1;
+    }
+
 }
