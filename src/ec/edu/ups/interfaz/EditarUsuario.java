@@ -185,8 +185,9 @@ public class EditarUsuario extends javax.swing.JInternalFrame {
             int confirmarActualizacion = JOptionPane.showConfirmDialog(this, "¿Seguro de actualizar los datos?");
             if (confirmarActualizacion == JOptionPane.YES_OPTION) {
                 ventantaInciar.setTxtCorreo(txtCorreo);
-                ctrlUsuario.update(new Usuario(txtCedula.getText(),nombre, apellido, correo, contraseña));
-                System.out.println("Usuario actualizado === " + devolverUsuario());
+                var newUser = new Usuario(txtCedula.getText(),nombre, apellido, correo, contraseña);
+                ctrlUsuario.update(newUser);
+                System.out.println("Usuario actualizado === " + ctrlUsuario.read(newUser));
                 this.dispose();
             } else if (confirmarActualizacion == JOptionPane.NO_OPTION) {
                 this.dispose();

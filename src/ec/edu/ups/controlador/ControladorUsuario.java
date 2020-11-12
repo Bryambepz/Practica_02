@@ -33,4 +33,15 @@ public class ControladorUsuario extends ControladorAbstract<Usuario> {
     public Usuario buscarTelefono(Telefono telefono) {
         return getListaObjetos().stream().filter(bn -> bn.buscarTelefono(telefono).equals(telefono.getNumero())).findFirst().get();
     }
+
+    @Override
+    public Usuario read(Usuario buscar) {
+        for (int i = 0; i < getListaObjetos().size(); i++) {
+            var us = getListaObjetos().get(i);
+            if (buscar.equals(us)) {
+                return us;
+            }
+        }
+        return null;
+    }
 }

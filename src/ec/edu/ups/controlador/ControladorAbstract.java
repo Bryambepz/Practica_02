@@ -22,9 +22,8 @@ public abstract class ControladorAbstract<T> {
     public ControladorAbstract() {
         listaObjetos = new ArrayList<>();
     }
-    
+
 //    public abstract int obtenerCodigo();
-    
     /**
      * Metodo Create para crear al objeto
      *
@@ -45,17 +44,18 @@ public abstract class ControladorAbstract<T> {
      * @param buscar
      * @return
      */
-//    public abstract T read(T buscar);
-    public T read(T buscar) {
-        if (listaObjetos.contains(buscar)) {
-            return listaObjetos.stream().filter(objeto -> objeto.equals(buscar)).findFirst().get();
-        }
-        return null;
-    }
+    public abstract T read(T buscar);
+//    public T read(T buscar) {
+//        if (listaObjetos.contains(buscar)) {
+//            return listaObjetos.stream().filter(objeto -> objeto.equals(buscar)).findFirst().get();
+//        }
+//        return null;
+//    }
 
     /**
      * Metodo update para buscar si existe un objeto
-     * @param usuario 
+     *
+     * @param usuario
      */
     public void update(T usuario) {
         if (listaObjetos.contains(usuario)) {
@@ -66,7 +66,7 @@ public abstract class ControladorAbstract<T> {
                     break;
                 }
             }
-        }else{
+        } else {
             System.out.println("No existe");
         }
     }
@@ -78,8 +78,18 @@ public abstract class ControladorAbstract<T> {
      * @return
      */
     public boolean delete(T objeto) {
-        T eliminarObjeto = read(objeto);
-        return (eliminarObjeto != null) ? listaObjetos.remove(eliminarObjeto) : false;
+        if (listaObjetos.contains(objeto)) {
+            for (int i = 0; i < listaObjetos.size(); i++) {
+                var telf = listaObjetos.get(i);
+                if (objeto.equals(telf)) {
+                    listaObjetos.remove(i);
+                    return true;
+                }
+            }
+        }
+        return false;
+//        T eliminarObjeto = read(objeto);
+//        return (eliminarObjeto != null) ? listaObjetos.remove(objeto) : false;
     }
 
     public List<T> findAll() {

@@ -63,11 +63,8 @@ public class Telefono {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 83 * hash + this.codigo;
-        hash = 83 * hash + Objects.hashCode(this.Numero);
-        hash = 83 * hash + Objects.hashCode(this.Tipo);
-        hash = 83 * hash + Objects.hashCode(this.Operadora);
+        int hash = 3;
+        hash = 43 * hash + this.codigo;
         return hash;
     }
 
@@ -86,18 +83,9 @@ public class Telefono {
         if (this.codigo != other.codigo) {
             return false;
         }
-        if (!Objects.equals(this.Numero, other.Numero)) {
-            return false;
-        }
-        if (!Objects.equals(this.Tipo, other.Tipo)) {
-            return false;
-        }
-        if (!Objects.equals(this.Operadora, other.Operadora)) {
-            return false;
-        }
         return true;
     }
-
+    
     @Override
     public String toString() {
         return "Telefono{" + "codigo=" + codigo + ", Numero=" + Numero + ", Tipo=" + Tipo + ", Operadora=" + Operadora + '}';

@@ -59,19 +59,19 @@ public class AgregarTelefono1 extends javax.swing.JInternalFrame {
         txtcCodigo.setText(String.valueOf(ctrlTelf.obtenerCodigo()));
     }
     
-//    public void botonesEditar(){
-//        btnAgregar.setEnabled(false);
-//        btnCancelar.setEnabled(true);
-//        btnEditar.setEnabled(true);
-//        btnEliminar.setEnabled(true);
-//    }
+    public void botonesEditar(){
+        btnAgregar.setEnabled(false);
+        btnCancelar.setEnabled(true);
+        btnEditar.setEnabled(true);
+        btnEliminar.setEnabled(true);
+    }
     
-//    public void iniciar(){
-//        btnAgregar.setEnabled(true);
-//        btnCancelar.setEnabled(false);
-//        btnEditar.setEnabled(false);
-//        btnEliminar.setEnabled(false);
-//    }
+    public void iniciar(){
+        btnAgregar.setEnabled(true);
+        btnCancelar.setEnabled(false);
+        btnEditar.setEnabled(false);
+        btnEliminar.setEnabled(false);
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -176,6 +176,11 @@ public class AgregarTelefono1 extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tablaTelefono.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaTelefonoMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tablaTelefono);
 
         btnAgregar.setText("Agregar");
@@ -193,15 +198,25 @@ public class AgregarTelefono1 extends javax.swing.JInternalFrame {
         });
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
-        btnCancelar.setText("Cancelar");
+        btnCancelar.setText("Cancelar Edicion Telefono");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(49, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(61, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -221,19 +236,17 @@ public class AgregarTelefono1 extends javax.swing.JInternalFrame {
                                     .addComponent(cbxOperadora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap())))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(24, 24, 24)
                                 .addComponent(btnAgregar)
-                                .addGap(54, 54, 54)
+                                .addGap(18, 18, 18)
                                 .addComponent(btnEditar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
                                 .addComponent(btnEliminar)
-                                .addGap(50, 50, 50)
-                                .addComponent(btnCancelar)
-                                .addGap(14, 14, 14))
+                                .addGap(18, 18, 18)
+                                .addComponent(btnCancelar))
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 493, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(41, 41, 41))))
+                        .addGap(29, 29, 29))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -254,15 +267,15 @@ public class AgregarTelefono1 extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(operadorajLabel4)
                     .addComponent(cbxOperadora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgregar)
                     .addComponent(btnEditar)
                     .addComponent(btnEliminar)
                     .addComponent(btnCancelar))
-                .addGap(28, 28, 28)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39))
         );
 
         pack();
@@ -309,6 +322,7 @@ public class AgregarTelefono1 extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Falta campos por llenar");
         } else {
             ctrlTelf.create(new Telefono(Integer.valueOf(txtcCodigo.getText()), numero, tipo, operadora));
+            System.out.println("Telefono agregado === " + ctrlTelf.read(new Telefono(Integer.valueOf(txtcCodigo.getText()), numero, tipo, operadora)));
             JOptionPane.showMessageDialog(null, "Datos agregados correctamente");
             cargarTelefonoTablatelf();
             codigoTelefono();
@@ -319,8 +333,60 @@ public class AgregarTelefono1 extends javax.swing.JInternalFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
+        String numero = formatedTXTNumero.getText();
+        String operadora = cbxOperadora.getSelectedItem().toString();
+        String tipo = cbxTipo.getSelectedItem().toString();
+        int cod = Integer.valueOf(txtcCodigo.getText());
+
+        if (numero.isEmpty() || tipo.equals(cbxTipo.getItemAt(0)) || operadora.equals(cbxOperadora.getItemAt(0))) {
+            JOptionPane.showMessageDialog(this, "Llene todos los requerimientos");
+        } else {
+            var newTelf = new Telefono(Integer.valueOf(txtcCodigo.getText()),numero, tipo, operadora);
+            ctrlTelf.update(newTelf);
+            System.out.println("Telefono actualizado === " + ctrlTelf.read(newTelf));
+            JOptionPane.showMessageDialog(this, "Teléfono actualizado con exito");
+            cargarTelefonoTablatelf();
+            limpiar();
+
+        }
     }//GEN-LAST:event_btnEditarActionPerformed
 
+    private void tablaTelefonoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaTelefonoMouseClicked
+        // TODO add your handling code here:
+        int fila = tablaTelefono.getSelectedRow();
+
+        txtcCodigo.setText(String.valueOf((int) tablaTelefono.getValueAt(fila, 0)));
+        formatedTXTNumero.setValue(tablaTelefono.getValueAt(fila, 1).toString());
+        cbxTipo.setSelectedItem(tablaTelefono.getValueAt(fila, 2).toString());
+        cbxOperadora.setSelectedItem(tablaTelefono.getValueAt(fila, 3).toString());
+        
+        botonesEditar();
+    }//GEN-LAST:event_tablaTelefonoMouseClicked
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+        int eliminarConfirmar = JOptionPane.showConfirmDialog(this, "¿Seguro quieres eliminar este telefono?");
+        if(eliminarConfirmar == JOptionPane.YES_OPTION){
+            int codigo = Integer.valueOf(txtcCodigo.getText());
+            var telefonoEliminar = ctrlTelf.read(ctrlTelf.comprobar(Integer.valueOf(txtcCodigo.getText())));
+            ctrlTelf.delete(telefonoEliminar);
+            System.out.println("Telefono eliminado == " + telefonoEliminar);
+            System.out.println(ctrlTelf.findAll());
+//            ctrlTelf.delete();
+//            ctrlTelf.comprobar(Integer.valueOf(txtcCodigo.getText()));
+            JOptionPane.showMessageDialog(this, "Telefono eliminado exitosamente");
+            cargarTelefonoTablatelf();
+            limpiar();
+            iniciar();
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        // TODO add your handling code here:
+        limpiar();
+        iniciar();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnCancelar;
