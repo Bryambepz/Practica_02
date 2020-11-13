@@ -45,7 +45,7 @@ public class TelefonosporUsuario1 extends javax.swing.JInternalFrame {
     }
 
     public void limpiar() {
-        txtCedulaB.setText("");
+        txtCedula.setText("");
         txtNombre.setText("");
         txtApellido.setText("");
         txtCorreo.setText("");
@@ -65,7 +65,7 @@ public class TelefonosporUsuario1 extends javax.swing.JInternalFrame {
         cedulaLabel = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         nombreLabel = new javax.swing.JLabel();
-        txtCedulaB = new javax.swing.JTextField();
+        txtCedula = new javax.swing.JTextField();
         apellidoLabel = new javax.swing.JLabel();
         correoLabel = new javax.swing.JLabel();
         txtCorreo = new javax.swing.JTextField();
@@ -211,7 +211,7 @@ public class TelefonosporUsuario1 extends javax.swing.JInternalFrame {
                             .addComponent(txtCorreo)
                             .addComponent(txtNombre)
                             .addComponent(txtApellido)
-                            .addComponent(txtCedulaB, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE))
+                            .addComponent(txtCedula, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE))
                         .addGap(84, 84, 84))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnBuscar)
@@ -232,7 +232,7 @@ public class TelefonosporUsuario1 extends javax.swing.JInternalFrame {
                         .addGap(44, 44, 44)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cedulaLabel)
-                            .addComponent(txtCedulaB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -263,9 +263,10 @@ public class TelefonosporUsuario1 extends javax.swing.JInternalFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-        String cedula = txtCedulaB.getText();
+        String cedula = txtCedula.getText();
         String correo = txtCorreo.getText();
-
+        System.out.println("cedula a buscar + " + cedula);
+        System.out.println("cedula sesion in + " + ctrlUsuario.read(cedula));
         if (rBtnCedula.isSelected()) {
             if (!cedula.isBlank()) {
                 var buscarUs = ctrlUsuario.read(cedula);
@@ -283,12 +284,14 @@ public class TelefonosporUsuario1 extends javax.swing.JInternalFrame {
                 } else {
                     JOptionPane.showMessageDialog(this, "Este usuario no existe");
                 }
+            }else{
+                JOptionPane.showMessageDialog(this, "Ingrese datos para buscar usuario");
             }
         } else {
             if (!correo.isBlank()) {
-                var buscarUs = ctrlUsuario.read(correo);
+                var buscarUs = ctrlUsuario.readCorreo(correo);
                 if (buscarUs != null) {
-                    txtCedulaB.setText(buscarUs.getCedula());
+                    txtCedula.setText(buscarUs.getCedula());
                     txtNombre.setText(buscarUs.getNombre());
                     txtApellido.setText(buscarUs.getApellido());
                     txtCorreo.setText(buscarUs.getCorreo());
@@ -332,7 +335,7 @@ public class TelefonosporUsuario1 extends javax.swing.JInternalFrame {
         rBtnCedula.setSelected(true);
         rBtnCorreo.setSelected(false);
         txtCorreo.setEnabled(false);
-        txtCedulaB.setEnabled(true);
+        txtCedula.setEnabled(true);
         limpiar();
     }//GEN-LAST:event_rBtnCedulaActionPerformed
 
@@ -341,7 +344,7 @@ public class TelefonosporUsuario1 extends javax.swing.JInternalFrame {
         rBtnCedula.setSelected(false);
         rBtnCorreo.setSelected(true);
         txtCorreo.setEnabled(true);
-        txtCedulaB.setEnabled(false);
+        txtCedula.setEnabled(false);
         txtNombre.setText("");
         limpiar();
     }//GEN-LAST:event_rBtnCorreoActionPerformed
@@ -352,7 +355,7 @@ public class TelefonosporUsuario1 extends javax.swing.JInternalFrame {
         rBtnCedula.setSelected(true);
         rBtnCorreo.setSelected(false);
         txtCorreo.setEnabled(false);
-        txtCedulaB.setEnabled(true);
+        txtCedula.setEnabled(true);
         txtNombre.setText("");
     }//GEN-LAST:event_formInternalFrameActivated
 
@@ -372,7 +375,7 @@ public class TelefonosporUsuario1 extends javax.swing.JInternalFrame {
     private javax.swing.JRadioButton rBtnCorreo;
     private javax.swing.JTable tablaTelefonosUsuario;
     private javax.swing.JTextField txtApellido;
-    private javax.swing.JTextField txtCedulaB;
+    private javax.swing.JTextField txtCedula;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables

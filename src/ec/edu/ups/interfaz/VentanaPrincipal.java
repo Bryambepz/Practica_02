@@ -42,7 +42,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         //instanciar ventanas
         ventanaIniciar = new VentanaIniciarSesion(ctrlUsuario,this);
         ventanaRegistrar = new VentanaRegistrarUsuario(ctrlUsuario);
-        ventanaEditarUsuario = new EditarUsuario(ctrlUsuario, ventanaIniciar);
+        ventanaEditarUsuario = new EditarUsuario(ctrlUsuario, this);
         ventantaAgregarTelf = new AgregarTelefono1(ctrlUsuario, ctrlTelefono);
         telefonoPorUsuario = new TelefonosporUsuario1(ctrlUsuario, ctrlTelefono);
         
@@ -205,7 +205,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         menuItemIniciarSesion.setVisible(true);
         menuItemRegistar.setVisible(true);
-        
+        getMenuAgenda().setVisible(false);
     }//GEN-LAST:event_menuItemCerrarActionPerformed
 
     private void menuItemUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemUsuarioActionPerformed

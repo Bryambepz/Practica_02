@@ -56,10 +56,10 @@ public class ControladorUsuario extends ControladorAbstract<Usuario> {
         return null;
     }
 
-    public Usuario read(String correo) {
+    public Usuario read(String cedula) {
         for (int i = 0; i < getListaObjetos().size(); i++) {
             var us = getListaObjetos().get(i);
-            if (correo.equals(us.getCorreo())) {
+            if (cedula.equals(us.getCedula())) {
                 return us;
             }
         }

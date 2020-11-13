@@ -18,15 +18,18 @@ import javax.swing.plaf.DesktopPaneUI;
  */
 public class EditarUsuario extends javax.swing.JInternalFrame {
 
-    private VentanaIniciarSesion ventantaInciar;
+    private VentanaPrincipal ventanaPrincipal;
     private ControladorUsuario ctrlUsuario;
 
     /**
      * Creates new form EditarUsuario
+     * @param ctrlUsuario
+     * @param ventanaPrincipal
      */
-    public EditarUsuario(ControladorUsuario ctrlUsuario, VentanaIniciarSesion ventantaInciar) {
+    public EditarUsuario(ControladorUsuario ctrlUsuario, VentanaPrincipal ventanaPrincipal) {
         initComponents();
         this.ctrlUsuario = ctrlUsuario;
+        this.ventanaPrincipal = ventanaPrincipal;
     }
 
     /**
@@ -180,11 +183,16 @@ public class EditarUsuario extends javax.swing.JInternalFrame {
         } else {
             int confirmarActualizacion = JOptionPane.showConfirmDialog(this, "¿Seguro de actualizar los datos?");
             if (confirmarActualizacion == JOptionPane.YES_OPTION) {
-                ventantaInciar.setTxtCorreo(txtCorreo);
+                ctrlUsuario.getSesionIniciada().setNombre(nombre);
+                ctrlUsuario.getSesionIniciada().setApellido(apellido);
+                ctrlUsuario.getSesionIniciada().setCorreo(correo);
+                ctrlUsuario.getSesionIniciada().setContraseña(contraseña);
                 var newUser = new Usuario(txtCedula.getText(), nombre, apellido, correo, contraseña);
+                ctrlUsuario.login(correo, contraseña);
                 ctrlUsuario.update(newUser);
-                System.out.println("Usuario actualizado === " + ctrlUsuario.read(newUser));
+                System.out.println("Usuario actualizado === " + newUser);
                 this.dispose();
+                ventanaPrincipal.getMenuAgenda().setVisible(false);
             } else if (confirmarActualizacion == JOptionPane.NO_OPTION) {
                 this.dispose();
             }
