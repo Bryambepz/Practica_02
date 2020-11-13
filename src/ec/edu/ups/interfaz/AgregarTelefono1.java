@@ -20,23 +20,27 @@ import javax.swing.table.DefaultTableModel;
  * @author braya
  */
 public class AgregarTelefono1 extends javax.swing.JInternalFrame {
+
     private ControladorUsuario ctrlUsuario;
     private ControladorTelefono ctrlTelf;
-    
-    private Usuario user;
+
     private Telefono telefono;
+
+    private VentanaIniciarSesion ventantaInciar;
+
     /**
      * Creates new form AgregarTelefono
+     * @param ctrlUsuario
+     * @param ctrlTelf
      */
     public AgregarTelefono1(ControladorUsuario ctrlUsuario, ControladorTelefono ctrlTelf) {
         initComponents();
         this.ctrlUsuario = ctrlUsuario;
         this.ctrlTelf = ctrlTelf;
-        this.user = user;
-        this.telefono = telefono;
-//        iniciar();
+        this.telefono = new Telefono();
+        iniciar();
     }
-    
+
     public void limpiar() {
         txtcCodigo.setText(String.valueOf(ctrlTelf.obtenerCodigo()));
         formatedTXTNumero.setValue("");
@@ -58,21 +62,21 @@ public class AgregarTelefono1 extends javax.swing.JInternalFrame {
         System.out.println("Codigo telefono = " + ctrlTelf.obtenerCodigo());
         txtcCodigo.setText(String.valueOf(ctrlTelf.obtenerCodigo()));
     }
-    
-    public void botonesEditar(){
+
+    public void botonesEditar() {
         btnAgregar.setEnabled(false);
         btnCancelar.setEnabled(true);
         btnEditar.setEnabled(true);
         btnEliminar.setEnabled(true);
     }
-    
-    public void iniciar(){
+
+    public void iniciar() {
         btnAgregar.setEnabled(true);
         btnCancelar.setEnabled(false);
         btnEditar.setEnabled(false);
         btnEliminar.setEnabled(false);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -309,25 +313,28 @@ public class AgregarTelefono1 extends javax.swing.JInternalFrame {
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
         codigoTelefono();
         cargarTelefonoTablatelf();
+        System.out.println(ctrlUsuario.getSesionIniciada());
     }//GEN-LAST:event_formInternalFrameActivated
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
-        
+
         String numero = formatedTXTNumero.getText();
         String tipo = cbxTipo.getSelectedItem().toString();
         String operadora = cbxOperadora.getSelectedItem().toString();
-        
+
         if (tipo.equals(cbxTipo.getItemAt(0)) || operadora.equals(cbxOperadora.getItemAt(0)) || numero.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Falta campos por llenar");
         } else {
-            ctrlTelf.create(new Telefono(Integer.valueOf(txtcCodigo.getText()), numero, tipo, operadora));
+            var newtelf = new Telefono(Integer.valueOf(txtcCodigo.getText()), numero, tipo, operadora);
+            ctrlTelf.create(newtelf);
+            ctrlUsuario.getSesionIniciada().agregarTelefono(newtelf);
             System.out.println("Telefono agregado === " + ctrlTelf.read(new Telefono(Integer.valueOf(txtcCodigo.getText()), numero, tipo, operadora)));
             JOptionPane.showMessageDialog(null, "Datos agregados correctamente");
             cargarTelefonoTablatelf();
             codigoTelefono();
             limpiar();
-            
+
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
@@ -341,8 +348,9 @@ public class AgregarTelefono1 extends javax.swing.JInternalFrame {
         if (numero.isEmpty() || tipo.equals(cbxTipo.getItemAt(0)) || operadora.equals(cbxOperadora.getItemAt(0))) {
             JOptionPane.showMessageDialog(this, "Llene todos los requerimientos");
         } else {
-            var newTelf = new Telefono(Integer.valueOf(txtcCodigo.getText()),numero, tipo, operadora);
+            var newTelf = new Telefono(Integer.valueOf(txtcCodigo.getText()), numero, tipo, operadora);
             ctrlTelf.update(newTelf);
+            ctrlUsuario.getSesionIniciada().actualizarTelefono(newTelf);
             System.out.println("Telefono actualizado === " + ctrlTelf.read(newTelf));
             JOptionPane.showMessageDialog(this, "Teléfono actualizado con exito");
             cargarTelefonoTablatelf();
@@ -359,21 +367,19 @@ public class AgregarTelefono1 extends javax.swing.JInternalFrame {
         formatedTXTNumero.setValue(tablaTelefono.getValueAt(fila, 1).toString());
         cbxTipo.setSelectedItem(tablaTelefono.getValueAt(fila, 2).toString());
         cbxOperadora.setSelectedItem(tablaTelefono.getValueAt(fila, 3).toString());
-        
+
         botonesEditar();
     }//GEN-LAST:event_tablaTelefonoMouseClicked
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
         int eliminarConfirmar = JOptionPane.showConfirmDialog(this, "¿Seguro quieres eliminar este telefono?");
-        if(eliminarConfirmar == JOptionPane.YES_OPTION){
+        if (eliminarConfirmar == JOptionPane.YES_OPTION) {
             int codigo = Integer.valueOf(txtcCodigo.getText());
             var telefonoEliminar = ctrlTelf.read(ctrlTelf.comprobar(Integer.valueOf(txtcCodigo.getText())));
             ctrlTelf.delete(telefonoEliminar);
             System.out.println("Telefono eliminado == " + telefonoEliminar);
             System.out.println(ctrlTelf.findAll());
-//            ctrlTelf.delete();
-//            ctrlTelf.comprobar(Integer.valueOf(txtcCodigo.getText()));
             JOptionPane.showMessageDialog(this, "Telefono eliminado exitosamente");
             cargarTelefonoTablatelf();
             limpiar();
@@ -386,7 +392,17 @@ public class AgregarTelefono1 extends javax.swing.JInternalFrame {
         limpiar();
         iniciar();
     }//GEN-LAST:event_btnCancelarActionPerformed
-    
+
+//    public Usuario devolverUsuario() {
+//        for (int i = 0; i < ctrlUsuario.getListaObjetos().size(); i++) {
+//            var us = ctrlUsuario.getListaObjetos().get(i);
+//            if (ventanaEditar.getTxtCorreo().getText().equals(us.getCorreo())) {
+//                return us;
+//            }
+//        }
+//        return null;
+//    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnCancelar;

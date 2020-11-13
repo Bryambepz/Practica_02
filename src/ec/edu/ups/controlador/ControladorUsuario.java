@@ -17,21 +17,32 @@ public class ControladorUsuario extends ControladorAbstract<Usuario> {
     public ControladorUsuario() {
         super();
     }
-    
+
+    Usuario sesionIniciada;
+
+    public Usuario getSesionIniciada() {
+        return sesionIniciada;
+    }
+
     public boolean login(String email, String password) {
         for (int i = 0; i < getListaObjetos().size(); i++) {
             Usuario us = getListaObjetos().get(i);
-            if (email.equals(us.getCorreo()) && password.equals(us.getContraseña()))return true;
+            if (email.equals(us.getCorreo()) && password.equals(us.getContraseña())) {
+                sesionIniciada = us;
+                return true;
+            }
         }
         return false;
     }
 
-    public Usuario buscarNombre(Usuario usuario) {
-        return getListaObjetos().stream().filter(bN -> bN.getCedula().equals(usuario.getCedula())).findFirst().get();
-    }
-
-    public Usuario buscarTelefono(Telefono telefono) {
-        return getListaObjetos().stream().filter(bn -> bn.buscarTelefono(telefono).equals(telefono.getNumero())).findFirst().get();
+    public boolean comprobarCorreo(String email) {
+        for (int i = 0; i < getListaObjetos().size(); i++) {
+            var correo = getListaObjetos().get(i);
+            if (email.equals(correo.getCorreo())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -40,6 +51,26 @@ public class ControladorUsuario extends ControladorAbstract<Usuario> {
             var us = getListaObjetos().get(i);
             if (buscar.equals(us)) {
                 return us;
+            }
+        }
+        return null;
+    }
+
+    public Usuario read(String correo) {
+        for (int i = 0; i < getListaObjetos().size(); i++) {
+            var us = getListaObjetos().get(i);
+            if (correo.equals(us.getCorreo())) {
+                return us;
+            }
+        }
+        return null;
+    }
+
+    public Usuario readCorreo(String correo) {
+        for (int i = 0; i < getListaObjetos().size(); i++) {
+            var usuario = getListaObjetos().get(i);
+            if (correo.equals(usuario.getCorreo())) {
+                return usuario;
             }
         }
         return null;

@@ -41,18 +41,6 @@ public class VentanaIniciarSesion extends javax.swing.JInternalFrame {
         this.txtCorreo = txtCorreo;
     }
     
-    public JButton getBtnInicarSesion() {
-        return btnInicarSesion;
-    }
-
-    public JLabel getIngreseContraseñaL() {
-        return ingreseContraseñaL;
-    }
-
-    public JLabel getIngreseCorreoL() {
-        return ingreseCorreoL;
-    }
-
     public void limpiar() {
         txtCorreo.setText("");
         txtContraseña.setText("");
@@ -74,6 +62,23 @@ public class VentanaIniciarSesion extends javax.swing.JInternalFrame {
         btnInicarSesion = new javax.swing.JButton();
 
         setClosable(true);
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameActivated(evt);
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         ingreseCorreoL.setText("Ingrese Correo");
 
@@ -138,8 +143,10 @@ public class VentanaIniciarSesion extends javax.swing.JInternalFrame {
                 ventanaPrincipal.getMenuItemRegistar().setVisible(false);
                 ventanaPrincipal.getMenuItemCerrar().setVisible(true);
                 ventanaPrincipal.getMenuAgenda().setVisible(true);
+                System.out.println("--\n Correo = " + ctrlUser.getSesionIniciada().getCorreo() + "\n--");
                 this.hide();
                 JOptionPane.showMessageDialog(this, "Datos correctos");
+                limpiar();
             } else {
                 JOptionPane.showMessageDialog(this, "Correo o contraseña Incorrectos");
                 limpiar();
@@ -147,7 +154,11 @@ public class VentanaIniciarSesion extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnInicarSesionActionPerformed
 
-
+    private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
+        // TODO add your handling code here:
+        limpiar();
+    }//GEN-LAST:event_formInternalFrameActivated
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnInicarSesion;
     private javax.swing.JLabel ingreseContraseñaL;

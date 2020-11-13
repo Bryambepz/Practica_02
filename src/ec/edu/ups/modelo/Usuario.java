@@ -43,7 +43,7 @@ public class Usuario {
     }
 
     public boolean agregarTelefono(Telefono telefono){
-        return this.listaTelefonos.add(telefono);
+        return listaTelefonos.add(telefono);
     }
     
     public Telefono buscarTelefono(Telefono tel){
@@ -52,30 +52,33 @@ public class Usuario {
     
     public int posicion(Telefono telefono){
         return this.listaTelefonos.stream().filter(bus -> bus.getCodigo() == telefono.getCodigo()).findFirst().hashCode();
-//        for (int i = 0; i < getListaTelefonos().size(); i++) {
-//            Telefono telf = listaTelefonos.get(i);
-//            if (telf.getCodigo() == telefono.getCodigo()) {
-//                return i;
-//            }
-//        }
-//        return -1;
     }
     
-    public boolean actualizarTelefono(Telefono telefono){
-//        var pos = posicion(telefono);
-        var pos = this.listaTelefonos.stream().filter(bus -> bus.getCodigo() == telefono.getCodigo()).findFirst().hashCode();
-        if (pos > 0) {
-            this.listaTelefonos.set(pos, telefono);
-            return true;
+    public void actualizarTelefono(Telefono telefono){
+        if (listaTelefonos.contains(telefono)) {
+            for (int i = 0; i < listaTelefonos.size(); i++) {
+                var us = listaTelefonos.get(i);
+                if (us.getCodigo() == telefono.getCodigo()) {
+                    listaTelefonos.set(i, telefono);
+                    break;
+                }
+            }
+        } else {
+            System.out.println("No existe");
         }
-        return false;
-//        Telefono obtenerTelefono = listaTelefonos.stream().filter(bTelf -> bTelf.getCodigo() == telefono.getCodigo()).findFirst().get();
-//        listaTelefonos.set(0, telefono)
     }
     
     public boolean eliminarTelefono(Telefono telefono){
-        Telefono eliminarTelefono = buscarTelefono(telefono);
-        return (eliminarTelefono != null) ? this.listaTelefonos.remove(eliminarTelefono) : false;
+        if (listaTelefonos.contains(telefono)) {
+            for (int i = 0; i < listaTelefonos.size(); i++) {
+                var telf = listaTelefonos.get(i);
+                if (telefono.getCodigo() == telf.getCodigo()) {
+                    listaTelefonos.remove(i);
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public String getCedula() {
@@ -128,8 +131,9 @@ public class Usuario {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 67 * hash + Objects.hashCode(this.cedula);
+        int hash = 3;
+        hash = 71 * hash + Objects.hashCode(this.cedula);
+        hash = 71 * hash + Objects.hashCode(this.listaTelefonos);
         return hash;
     }
 
@@ -146,6 +150,9 @@ public class Usuario {
         }
         final Usuario other = (Usuario) obj;
         if (!Objects.equals(this.cedula, other.cedula)) {
+            return false;
+        }
+        if (!Objects.equals(this.listaTelefonos, other.listaTelefonos)) {
             return false;
         }
         return true;

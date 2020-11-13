@@ -17,6 +17,7 @@ import javax.swing.JTextField;
  * @author braya
  */
 public class VentanaRegistrarUsuario extends javax.swing.JInternalFrame {
+
     private ControladorUsuario ctrlUsuario;
 
     /**
@@ -50,16 +51,15 @@ public class VentanaRegistrarUsuario extends javax.swing.JInternalFrame {
     public JLabel getNombreL() {
         return nombreL;
     }
-    
-    
-    
-    public void limpiar(){
+
+    public void limpiar() {
         txtCedula.setText("");
         txtNombre.setText("");
         txtApellido.setText("");
         txtCorreo.setText("");
         txtContraseña.setText("");
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -189,16 +189,20 @@ public class VentanaRegistrarUsuario extends javax.swing.JInternalFrame {
         String correo = txtCorreo.getText();
         String contraseña = txtContraseña.getText();
 
-        if(cedula.isBlank() || nombre.isBlank() || apellido.isBlank() || contraseña.isBlank() || correo.isBlank()){
+        if (cedula.isBlank() || nombre.isBlank() || apellido.isBlank() || contraseña.isBlank() || correo.isBlank()) {
             JOptionPane.showMessageDialog(this, "Faltan campos por llenar");
             limpiar();
-        }else{
-            System.out.println("Nuevo usuario = "+ new Usuario(cedula, nombre, apellido, correo, contraseña));
-            ctrlUsuario.create(new Usuario(cedula, nombre, apellido, correo, contraseña));
-//            ctrlUsuario.create(new Usuario(cedula, nombre, apellido, correo, contraseña));
-            JOptionPane.showMessageDialog(this, "Usuario registrado correctamente");
-            limpiar();
-            this.dispose();
+        } else {
+            if (ctrlUsuario.comprobarCorreo(correo)) {
+                JOptionPane.showMessageDialog(this, "Este correo ya existe");
+                limpiar();
+            } else {
+                System.out.println("Nuevo usuario = " + new Usuario(cedula, nombre, apellido, correo, contraseña));
+                ctrlUsuario.create(new Usuario(cedula, nombre, apellido, correo, contraseña));
+                JOptionPane.showMessageDialog(this, "Usuario registrado correctamente");
+                limpiar();
+                this.dispose();
+            }
         }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 

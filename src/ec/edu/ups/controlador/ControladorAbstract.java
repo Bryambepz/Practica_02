@@ -88,8 +88,6 @@ public abstract class ControladorAbstract<T> {
             }
         }
         return false;
-//        T eliminarObjeto = read(objeto);
-//        return (eliminarObjeto != null) ? listaObjetos.remove(objeto) : false;
     }
 
     public List<T> findAll() {
@@ -103,5 +101,4 @@ public abstract class ControladorAbstract<T> {
     public void setListaObjetos(List<T> listaObjetos) {
         this.listaObjetos = listaObjetos;
     }
-
 }

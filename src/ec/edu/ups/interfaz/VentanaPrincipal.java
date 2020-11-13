@@ -22,8 +22,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private VentanaIniciarSesion ventanaIniciar;
     private EditarUsuario ventanaEditarUsuario;
     private AgregarTelefono1 ventantaAgregarTelf;
-//    private AgregarTelefono agregarTelefono;
-//    private TelefonosporUsuario telefonoPorUsuario;
+    private TelefonosporUsuario1 telefonoPorUsuario;
     //mvc
     private ControladorUsuario ctrlUsuario;
     private ControladorTelefono ctrlTelefono;
@@ -45,10 +44,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         ventanaRegistrar = new VentanaRegistrarUsuario(ctrlUsuario);
         ventanaEditarUsuario = new EditarUsuario(ctrlUsuario, ventanaIniciar);
         ventantaAgregarTelf = new AgregarTelefono1(ctrlUsuario, ctrlTelefono);
-//        agregarTelefono = new AgregarTelefono(ctrlUsuario,this);
-//        editarUsuario = new EditarUsuario(ctrlUsuario, this);
-        
-//        telefonoPorUsuario = new TelefonosporUsuario(ctrlUsuario, this);
+        telefonoPorUsuario = new TelefonosporUsuario1(ctrlUsuario, ctrlTelefono);
         
         this.setExtendedState(MAXIMIZED_HORIZ);
         this.setExtendedState(MAXIMIZED_VERT);
@@ -218,8 +214,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void menuItemListarUsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemListarUsActionPerformed
         // TODO add your handling code here:
-//        desktopPane.add(telefonoPorUsuario);
-//        telefonoPorUsuario.setVisible(true);
+        desktopPane.add(telefonoPorUsuario);
+        telefonoPorUsuario.setVisible(true);
     }//GEN-LAST:event_menuItemListarUsActionPerformed
     
     public void abrir(JInternalFrame frame){

@@ -29,6 +29,9 @@ public class Telefono {
         this.Operadora = Operadora;
     }
 
+    public Telefono() {
+    }
+    
     public int getCodigo() {
         return codigo;
     }

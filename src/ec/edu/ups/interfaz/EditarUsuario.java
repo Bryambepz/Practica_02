@@ -20,7 +20,6 @@ public class EditarUsuario extends javax.swing.JInternalFrame {
 
     private VentanaIniciarSesion ventantaInciar;
     private ControladorUsuario ctrlUsuario;
-    private Usuario usuario;
 
     /**
      * Creates new form EditarUsuario
@@ -28,8 +27,6 @@ public class EditarUsuario extends javax.swing.JInternalFrame {
     public EditarUsuario(ControladorUsuario ctrlUsuario, VentanaIniciarSesion ventantaInciar) {
         initComponents();
         this.ctrlUsuario = ctrlUsuario;
-//        this.usuario = usuario;
-        this.ventantaInciar = ventantaInciar;
     }
 
     /**
@@ -173,7 +170,6 @@ public class EditarUsuario extends javax.swing.JInternalFrame {
 
     private void btnActualizatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizatActionPerformed
         // TODO add your handling code here:
-//        String cedula = txtCedula.getText();
         String nombre = txtNombre.getText();
         String apellido = txtApellido.getText();
         String correo = txtCorreo.getText();
@@ -185,7 +181,7 @@ public class EditarUsuario extends javax.swing.JInternalFrame {
             int confirmarActualizacion = JOptionPane.showConfirmDialog(this, "¿Seguro de actualizar los datos?");
             if (confirmarActualizacion == JOptionPane.YES_OPTION) {
                 ventantaInciar.setTxtCorreo(txtCorreo);
-                var newUser = new Usuario(txtCedula.getText(),nombre, apellido, correo, contraseña);
+                var newUser = new Usuario(txtCedula.getText(), nombre, apellido, correo, contraseña);
                 ctrlUsuario.update(newUser);
                 System.out.println("Usuario actualizado === " + ctrlUsuario.read(newUser));
                 this.dispose();
@@ -199,8 +195,6 @@ public class EditarUsuario extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         mostrarDatos();
         System.out.println("Tama;o lista = " + ctrlUsuario.getListaObjetos().size());
-//        System.out.println("read = " + ctrlUsuario.read(devolverUsuario()));
-//        System.out.println("posicion = " + ctrlUsuario.posicion(devolverUsuario()));
     }//GEN-LAST:event_formInternalFrameActivated
 
     private void txtNombreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNombreMouseClicked
@@ -223,28 +217,12 @@ public class EditarUsuario extends javax.swing.JInternalFrame {
         txtContraseña.setText("");
     }//GEN-LAST:event_txtContraseñaMouseClicked
 
-    public Usuario devolverUsuario() {
-        for (int i = 0; i < ctrlUsuario.getListaObjetos().size(); i++) {
-            var user = ctrlUsuario.getListaObjetos().get(i);
-            if (ventantaInciar.getTxtCorreo().getText().equals(user.getCorreo())) {
-                return user;
-            }
-        }
-        return null;
-    }
-
     public void mostrarDatos() {
-        if (devolverUsuario() != null) {
-        System.out.println("\n"+ devolverUsuario());
-            System.out.println("Usuario Encontrado");
-            txtCedula.setText(devolverUsuario().getCedula());
-            txtNombre.setText(devolverUsuario().getNombre());
-            txtApellido.setText(devolverUsuario().getApellido());
-            txtCorreo.setText(devolverUsuario().getCorreo());
-            txtContraseña.setText(devolverUsuario().getContraseña());
-        }else{
-            System.out.println("Usuario no encontrado");
-        }
+            txtCedula.setText(ctrlUsuario.getSesionIniciada().getCedula());
+            txtNombre.setText(ctrlUsuario.getSesionIniciada().getNombre());
+            txtApellido.setText(ctrlUsuario.getSesionIniciada().getApellido());
+            txtCorreo.setText(ctrlUsuario.getSesionIniciada().getCorreo());
+            txtContraseña.setText(ctrlUsuario.getSesionIniciada().getContraseña());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
